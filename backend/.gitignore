@@ -1,0 +1,4 @@
+node_modules/
+.env
+places-data.json
+registrations-data.json
