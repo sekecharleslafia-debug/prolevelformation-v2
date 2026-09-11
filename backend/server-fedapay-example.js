@@ -57,7 +57,8 @@ const app = express();
 // pas laisser l'API ouverte à n'importe quel site.
 app.use(cors({
   origin: [
-    'https://TON-SITE.netlify.app'
+    'https://alibabaformation.netlify.app'
+]
     // Ajoute ici ton futur domaine personnalisé si tu en configures un.
   ]
 }));
@@ -111,7 +112,7 @@ async function envoyerEmailAcces(candidat) {
         <p><strong>Formation :</strong> Apprendre à commander sur Alibaba<br>
            <strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
         <p>Connecte-toi ici le jour du début de la formation :<br>
-           <a href="https://TON-SITE.netlify.app/acces.html">https://TON-SITE.netlify.app/acces.html</a></p>
+           <a href="https://alibabaformation.netlify.app/acces.html">https://alibabaformation.netlify.app/acces.html</a></p>
         <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
       `
     });
