@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=1080">
+<title>ProLevelFormation — Apprends à commander sur Alibaba</title>
+<style>
+  :root{
+    --navy-dark:#0a1f3d;
+    --navy-deep:#081733;
+    --orange:#f7941e;
+    --orange-light:#ffb347;
+    --white:#ffffff;
+    --gray:#5b6472;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'times new roman', Arial, sans-serif;
+    color:var(--white);
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px 48px;
+    background:var(--white);
+  }
+
+  .logo-block{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
+  .logo-icon{
+    width:46px;
+    height:46px;
+    flex-shrink:0;
+  }
+
+  .logo-text h1{
+    font-size:60px;
+    line-height:1;
+    color:var(--navy-dark);
+  }
+  .logo-text h1 span{
+    color:var(--orange);
+  }
+  .logo-text p{
+    font-size:15px;
+    letter-spacing:0px;
+    color:var(--gray);
+    margin-top:1px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background-image:
+      linear-gradient(90deg, var(--navy-deep) 0%, rgba(10,31,61,0.75) 35%, rgba(10,31,61,0.15) 65%, rgba(10,31,61,0) 100%),
+      url('assets/hero-bg.png');
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+    padding:30px 48px 50px;
+    display:flex;
+    align-items:center;
+    min-height:400px;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+  }
+
+  .badge{
+    display:inline-block;
+    background:var(--orange);
+    color:var(--navy-deep);
+    font-weight:1000;
+    font-size:30px;
+    letter-spacing:0.5px;
+    padding:8px 18px;
+    border-radius:22px;
+    margin-bottom:22px;
+  }
+
+  .headline{
+    font-size:58px;
+    font-weight:1000;
+    line-height:1.09;
+    margin-bottom:22px;
+  }
+  .headline .accent{
+    display:block;
+    background:linear-gradient(90deg, var(--orange) 0%, var(--orange-light) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero p{
+    line-height:1.6;
+    color:#d7deea;
+    max-width:500px;
+    margin-bottom:10px;
+  }
+  .hero p strong{
+    color:var(--orange-light);
+  }
+  @media (max-width:880px){
+    .hero{ padding:50px 24px; }
+    .headline{ font-size:46px; }
+    .hero-content{ max-width:100%; }
+  }
+
+  /* ===== BANNIÈRE TARIF ===== */
+  .price-banner{
+    max-width:1100px;
+    margin:0px auto 0px;
+    position:relative;
+    z-index:2;
+    background:var(--navy-dark);
+    border-radius:0px;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+  }
+
+  .price-left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .coin-icon{ width:48px; height:48px; flex-shrink:0; }
+  .price-left .label{
+    font-size:30px;
+    color:#c9d2e0;
+    margin-bottom:2px;
+  }
+  .price-left .amount{
+    font-size:90px;
+    font-weight:1000;
+    color:white;
+    line-height:1;
+  }
+
+  .divider{
+    width:1px;
+    align-self:stretch;
+    background:rgba(255,255,255,0.25);
+  }
+
+  .tagline{
+    font-family:'Brush Script MT', cursive;
+    font-size:30px;
+    color:var(--white);
+    line-height:1.3;
+    flex:1;
+    min-width:180px;
+  }
+  .tagline .underline{
+    display:block;
+    width:80%;
+    height:10px;
+    margin-top:-2px;
+  }
+
+  .price-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--orange);
+    color:var(--navy-deep);
+    font-weight:1000;
+    font-size:40px;
+    padding:20px 28px;
+    border-radius:10px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+
+  @media (max-width:760px){
+    .price-banner{ flex-direction:column; border-radius:24px; text-align:center; }
+    .divider{ width:60%; height:1px; }
+  }
+
+  /* ===== PROGRAMME ===== */
+  .program{
+    background:#ffffff;
+    padding:70px 48px 90px;
+    color:var(--navy-dark);
+  }
+
+  .program-header{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    max-width:1100px;
+    margin:0 auto 44px;
+  }
+  .program-icon{ width:56px; height:56px; flex-shrink:0; margin-top:4px; }
+  .program-header h2{
+    font-size:55px;
+    color:var(--navy-dark);
+    margin-bottom:8px;
+  }
+  .program-header p{
+    color:var(--gray);
+    font-size:31px;
+  }
+
+  .program-grid{
+    max-width:1100px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:28px;
+  }
+
+  .day-card{
+    background:var(--tint);
+    border-radius:18px;
+    padding:50px 34px 42px;
+    flex:1 1 300px;
+    max-width:455px;
+  }
+
+  .day-top{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .day-number{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#ffffff;
+    font-weight:1000;
+    font-size:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .day-label{
+    background:var(--accent);
+    color:#ffffff;
+    font-weight:700;
+    font-size:25px;
+    letter-spacing:0.5px;
+    padding:7px 14px;
+    border-radius:14px;
+  }
+
+  .day-icon{
+    width:59px;
+    height:52px;
+    margin-bottom:16px;
+  }
+
+  .day-card h3{
+    font-size:30px;
+    color:var(--navy-dark);
+    margin-bottom:16px;
+    line-height:1.25;
+  }
+
+  .day-card ul{
+    list-style:none;
+  }
+  .day-card li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:11px;
+    font-size:20px;
+    color:#3a4150;
+    line-height:1.4;
+  }
+  .day-card li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:7px;
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--accent);
+  }
+
+  .day-card.d1{ --accent:#f5a623; --tint:#fdf3e2; }
+  .day-card.d2{ --accent:#2f7fe0; --tint:#e9f1fd; }
+  .day-card.d3{ --accent:#ff7a45; --tint:#fdeee7; }
+  .day-card.d4{ --accent:#e0447a; --tint:#fbe8ef; }
+  .day-card.d5{ --accent:#2e9e6b; --tint:#e7f5ee; }
+
+  @media (max-width:560px){
+    .day-card{ flex:1 1 100%; max-width:100%; }
+    .program{ padding:50px 24px 60px; }
+  }
+
+  /* ===== PLACES DISPONIBLES ===== */
+  .seats-wrap{
+    padding:40px 48px 0;
+    background:#ffffff;
+  }
+  .seats-box{
+    max-width:1100px;
+    margin:0 auto;
+    border:2px solid #1e3a6e;
+    border-radius:22px;
+    box-shadow:0 10px 25px rgba(10,31,61,0.12);
+    display:flex;
+    align-items:stretch;
+    overflow:hidden;
+  }
+  .seats-left, .seats-mid, .seats-right{
+    padding:28px 30px;
+  }
+  .seats-left{
+    flex:1 1 32%;
+    border-right:1px solid #e6e9ef;
+    position:relative;
+  }
+  .seats-number-wrap{
+    position:relative;
+    display:inline-block;
+  }
+  .burst{
+    position:absolute;
+    background:var(--orange);
+    border-radius:2px;
+  }
+  .burst.b1{ width:22px; height:4px; top:-4px; right:-30px; transform:rotate(35deg); }
+  .burst.b2{ width:14px; height:4px; top:14px; right:-38px; transform:rotate(0deg); }
+  .burst.b3{ width:18px; height:4px; top:34px; right:-32px; transform:rotate(-30deg); }
+  .burst.b4{ width:14px; height:4px; bottom:8px; left:-26px; transform:rotate(20deg); }
+  .burst.b5{ width:10px; height:4px; bottom:-4px; left:10px; transform:rotate(70deg); }
+  .seats-mid{
+    flex:1 1 36%;
+    border-right:1px solid #e6e9ef;
+  }
+  .seats-right{
+    flex:1 1 26%;
+    background:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px 20px;
+  }
+  .seats-blob{
+    position:relative;
+    width:100%;
+    max-width:230px;
+    padding:28px 20px;
+    background:#ffb347;
+    border-radius:58% 42% 46% 54% / 52% 48% 52% 48%;
+    transform:rotate(-4deg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    gap:8px;
+    box-shadow:0 10px 22px rgba(247,148,30,0.35);
+  }
+
+  .seats-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--orange);
+    color:var(--navy-dark);
+    font-weight:800;
+    font-size:25px;
+    letter-spacing:0.5px;
+    padding:8px 16px;
+    border-radius:20px;
+    margin-bottom:16px;
+    box-shadow:0 6px 14px rgba(247,148,30,0.35);
+  }
+  .seats-tag .avatar-circle{
+    width:26px;
+    height:26px;
+    border-radius:50%;
+    background:var(--navy-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .seats-number{
+    font-size:100px;
+    font-weight:900;
+    font-style:italic;
+    color:var(--navy-dark);
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .seats-left .seats-caption{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    color:var(--navy-dark);
+    margin-bottom:16px;
+  }
+  .seats-cta-pill{
+    display:inline-block;
+    background:var(--orange);
+    color:var(--navy-dark);
+    font-weight:900;
+    font-size:20px;
+    padding:8px 16px;
+    border-radius:16px;
+    transform:rotate(-2deg);
+    box-shadow:0 6px 14px rgba(247,148,30,0.35);
+  }
+
+  .seats-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:14px;
+  }
+  .seats-row .icon-circle{
+    width:49px;
+    height:49px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .icon-circle.green{ background:#2e9e6b; box-shadow:0 4px 10px rgba(46,158,107,0.35); }
+  .icon-circle.red{ background:#e0447a; box-shadow:0 4px 10px rgba(224,68,122,0.35); }
+
+  .seats-row .stat-number{
+    font-size:80px;
+    font-weight:1000;
+    line-height:1;
+  }
+  .stat-number.green{ color:#2e9e6b; }
+  .stat-number.red{ color:#e0447a; }
+  .seats-row .stat-label{
+    font-size:20px;
+    color:var(--gray);
+    font-weight:900;
+    letter-spacing:0.3px;
+  }
+
+  .progress-track{
+    width:200%;
+    height:10px;
+    background:#e4e8ef;
+    border-radius:6px;
+    overflow:hidden;
+    margin:10px 0 8px;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:#2e9e6b;
+    border-radius:6px;
+  }
+  .progress-caption{
+    font-size:28px;
+    color:var(--navy-dark);
+  }
+  .progress-caption strong{
+    font-weight:900;
+  }
+
+  .seats-right .clock-circle{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#ffffff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:2px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.15);
+    transform:rotate(4deg);
+  }
+  .seats-right p{
+    color:var(--navy-dark);
+    font-weight:800;
+    font-size:25px;
+    line-height:1.35;
+    transform:rotate(4deg);
+  }
+
+  @media (max-width:820px){
+    .seats-box{ flex-direction:column; }
+    .seats-left, .seats-mid{ border-right:none; border-bottom:1px solid #e6e9ef; }
+  }
+
+  /* ===== CE QUE COMPREND LA FORMATION ===== */
+  .includes-wrap{
+    padding:0 48px 70px;
+    background:#ffffff;
+  }
+  .includes-box{
+    max-width:1100px;
+    margin:0 auto;
+    background:#eaf2fb;
+    border-radius:22px;
+    padding:32px 40px 38px;
+  }
+  .includes-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:30px;
+  }
+  .includes-title .gift-circle{
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--navy-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .includes-title h2{
+    font-size:40px;
+    color:var(--navy-dark);
+  }
+
+  .includes-grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .includes-item{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    flex:1 1 140px;
+    position:relative;
+    padding:0 14px;
+  }
+  .includes-item:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    right:-12px;
+    top:8px;
+    bottom:8px;
+    width:1px;
+    background:#c9d6e6;
+  }
+  .includes-icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:14px;
+    box-shadow:0 8px 16px rgba(10,31,61,0.15);
+  }
+  .includes-icon.blue{ background:#2f7fe0; }
+  .includes-icon.red{ background:#ea3b3b; }
+  .includes-icon.purple{ background:#8b3fd1; }
+  .includes-icon.green{ background:#2e9e6b; }
+  .includes-icon.orange{ background:#f7941e; }
+
+  .includes-item p{
+    font-size:26px;
+    font-weight:800;
+    color:var(--navy-dark);
+    line-height:1.3;
+  }
+
+  @media (max-width:820px){
+    .includes-grid{ justify-content:center; }
+    .includes-item{ flex:1 1 30%; }
+    .includes-item:not(:last-child)::after{ display:none; }
+  }
+  @media (max-width:560px){
+    .includes-wrap{ padding:0 24px 50px; }
+    .includes-item{ flex:1 1 45%; }
+  }
+
+  /* ===== TÉMOIGNAGES / DIPLÔMÉS ===== */
+  .proof-wrap{
+    padding:0 48px 80px;
+    background:#ffffff;
+  }
+  .proof-box{
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .proof-header{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:30px;
+  }
+  .proof-icon{ width:52px; height:52px; flex-shrink:0; margin-top:4px; }
+  .proof-header h2{
+    font-size:52px;
+    color:var(--navy-dark);
+    margin-bottom:6px;
+  }
+  .proof-header p{
+    color:var(--gray);
+    font-size:30px;
+  }
+  .proof-photo{
+    width:100%;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 0px 0px rgba(10,31,61,0.18);
+  }
+  .proof-photo img{
+    width:100%;
+    display:block;
+  }
+  .proof-caption{
+    text-align:center;
+    margin-top:18px;
+    color:var(--gray);
+    font-size:30px;
+  }
+  .proof-caption strong{
+    color:var(--navy-dark);
+  }
+
+  @media (max-width:560px){
+    .proof-wrap{ padding:0 24px 60px; }
+    .proof-header h2{ font-size:32px; }
+    .proof-header p{ font-size:19px; }
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--navy-deep);
+    padding:50px 48px 30px;
+    color:#c9d2e0;
+  }
+  .footer-box{
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .footer-top{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:36px;
+    padding-bottom:34px;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+  }
+  .footer-brand{
+    flex:1 1 280px;
+    max-width:360px;
+  }
+  .footer-brand .logo-block{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .footer-brand .logo-icon{ width:34px; height:34px; flex-shrink:0; }
+  .footer-brand h3{
+    font-size:26px;
+    color:var(--white);
+    line-height:1;
+  }
+  .footer-brand h3 span{ color:var(--orange); }
+  .footer-brand p{
+    font-size:17px;
+    line-height:1.6;
+    color:#a9b4c6;
+  }
+
+  .footer-col h4{
+    font-size:19px;
+    color:var(--white);
+    margin-bottom:16px;
+    letter-spacing:0.3px;
+  }
+  .footer-col ul{ list-style:none; }
+  .footer-col li{
+    font-size:17px;
+    margin-bottom:11px;
+    color:#a9b4c6;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .footer-col li span.dot{
+    width:5px; height:5px; border-radius:50%;
+    background:var(--orange);
+    flex-shrink:0;
+  }
+
+  .footer-bottom{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding-top:22px;
+    font-size:15px;
+    color:#7f8bab;
+  }
+  .footer-socials{
+    display:flex;
+    gap:12px;
+  }
+  .footer-socials a{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  @media (max-width:560px){
+    footer{ padding:40px 24px 24px; }
+    .footer-bottom{ flex-direction:column; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,18 90,34 50,50 10,34" fill="#0a1f3d"/>
+      <polygon points="50,50 90,34 90,40 50,56" fill="#0a1f3d"/>
+      <line x1="24" y1="38" x2="24" y2="58" stroke="#0a1f3d" stroke-width="3"/>
+      <circle cx="24" cy="60" r="3.5" fill="#0a1f3d"/>
+      <path d="M20 62
+               C 30 58, 40 62, 44 72
+               C 46 66, 54 62, 62 64
+               C 56 66, 52 72, 54 80
+               C 46 76, 38 78, 34 84
+               C 34 76, 28 68, 18 66
+               Z"
+            fill="#f7941e"/>
+    </svg>
+    <div class="logo-text">
+      <h1>ProLevel<span>Formation</span></h1>
+      <p>APPRENDRE &bull; ENTREPRENDRE &bull; RÉUSSIR</p>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+
+  <div class="hero-content">
+    <span class="badge">FORMATION EN LIGNE</span>
+    <h2 class="headline">
+      APPRENDRE À
+      <span class="accent">COMMANDER </span>
+      <span class="accent">SUR ALIBABA</span>
+    </h2>
+    <p>De la recherche du produit jusqu'à sa réception au Bénin.</p>
+    <p>Une formation pratique de <strong>5 jours</strong>, pensée pour les débutants.</p>
+   
+  </div>
+
+
+</section>
+
+<div class="price-banner">
+  <div class="price-left">
+    <svg class="coin-icon" viewBox="0 0 64 64">
+      <ellipse cx="32" cy="46" rx="22" ry="9" fill="#f7941e"/>
+      <ellipse cx="32" cy="38" rx="22" ry="9" fill="#ffb347"/>
+      <ellipse cx="32" cy="30" rx="22" ry="9" fill="#f7941e"/>
+      <ellipse cx="32" cy="22" rx="22" ry="9" fill="#ffb347"/>
+    </svg>
+    <div>
+      <div class="label">Frais de formation</div>
+      <div class="amount">5000F</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="tagline">
+    Ton avenir commence ici !
+    <svg class="underline" viewBox="0 0 200 20" preserveAspectRatio="none">
+      <path d="M2 12 Q50 2 100 10 T198 8" fill="none" stroke="#f7941e" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <a href="inscription.html" class="price-cta" id="inscriptionCta">INSCRIPTION &rarr;</a>
+</div>
+
+<div class="seats-wrap">
+  <div class="seats-box">
+
+    <div class="seats-left">
+      <div class="seats-tag">
+        <span class="avatar-circle">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#f7941e">
+            <circle cx="8" cy="9" r="3.2"/>
+            <circle cx="16" cy="9" r="3.2"/>
+            <path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="none"/>
+            <path d="M10 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="none" opacity="0"/>
+          </svg>
+        </span>
+        PLACES POUR LA FORMATION
+      </div>
+      <div class="seats-number-wrap">
+        <span class="burst b1"></span>
+        <span class="burst b2"></span>
+        <span class="burst b3"></span>
+        <span class="burst b4"></span>
+        <span class="burst b5"></span>
+        <div class="seats-number" id="seatsTotal">20</div>
+      </div>
+      <div class="seats-caption">PLACES SEULEMENT</div>
+      <span class="seats-cta-pill">Ne manque pas ta chance !</span>
+    </div>
+
+    <div class="seats-mid">
+      <div class="seats-row">
+        <span class="icon-circle green">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12l5 5L20 6"/>
+          </svg>
+        </span>
+        <div>
+          <div class="stat-number green" id="seatsAvailable">20</div>
+          <div class="stat-label">PLACES DISPONIBLES</div>
+        </div>
+      </div>
+
+      <div class="seats-row">
+        <span class="icon-circle red">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+          </svg>
+        </span>
+        <div>
+          <div class="stat-number red" id="seatsOccupied">0</div>
+          <div class="stat-label">PLACES DÉJÀ OCCUPÉES</div>
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-caption" id="progressCaption"><strong>20 / 20</strong> places disponibles</div>
+    </div>
+
+    <div class="seats-right">
+      <div class="seats-blob">
+        <span class="clock-circle">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="13" r="8"/>
+            <path d="M12 9v4l3 2"/>
+            <path d="M9 2h6"/>
+          </svg>
+        </span>
+        <p>Les places sont limitées !<br>Inscrivez-vous maintenant !</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<section class="program">
+
+  <div class="program-header">
+    <svg class="program-icon" viewBox="0 0 64 64">
+      <rect x="8" y="12" width="48" height="44" rx="8" fill="none" stroke="#f7941e" stroke-width="4"/>
+      <line x1="8" y1="24" x2="56" y2="24" stroke="#f7941e" stroke-width="4"/>
+      <line x1="18" y1="6" x2="18" y2="18" stroke="#f7941e" stroke-width="4" stroke-linecap="round"/>
+      <line x1="46" y1="6" x2="46" y2="18" stroke="#f7941e" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="24" cy="38" r="3" fill="#f7941e"/>
+      <circle cx="34" cy="38" r="3" fill="#f7941e"/>
+      <path d="M22 46 Q29 52 36 46" fill="none" stroke="#f7941e" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h2>Le programme de la formation</h2>
+      <p>5 jours pour maîtriser tout le processus, étape par étape.</p>
+    </div>
+  </div>
+
+  <div class="program-grid">
+
+    <div class="day-card d1">
+      <div class="day-top">
+        <div class="day-number">1</div>
+        <div class="day-label">JOUR 1</div>
+      </div>
+      <svg class="day-icon" viewBox="0 0 64 64">
+        <rect x="6" y="20" width="52" height="26" rx="4" fill="#f5a623"/>
+        <text x="32" y="38" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Alibaba</text>
+      </svg>
+      <h3>Alibaba + préparation</h3>
+      <ul>
+        <li>Créer son compte Alibaba</li>
+        <li>Créer son compte Intercargo</li>
+        <li>Préparer son importation</li>
+      </ul>
+    </div>
+
+    <div class="day-card d2">
+      <div class="day-top">
+        <div class="day-number">2</div>
+        <div class="day-label">JOUR 2</div>
+      </div>
+      <svg class="day-icon" viewBox="0 0 64 64">
+        <circle cx="26" cy="26" r="16" fill="none" stroke="#2f7fe0" stroke-width="6"/>
+        <line x1="38" y1="38" x2="54" y2="54" stroke="#2f7fe0" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+      <h3>Recherche produit + fournisseur</h3>
+      <ul>
+        <li>Trouver un produit</li>
+        <li>Comparer les offres</li>
+        <li>Choisir un fournisseur</li>
+      </ul>
+    </div>
+
+    <div class="day-card d3">
+      <div class="day-top">
+        <div class="day-number">3</div>
+        <div class="day-label">JOUR 3</div>
+      </div>
+      <svg class="day-icon" viewBox="0 0 64 64">
+        <path d="M8 12h48v28H30l-10 10v-10H8z" fill="#ff7a45"/>
+        <circle cx="20" cy="26" r="2.5" fill="#ffffff"/>
+        <circle cx="32" cy="26" r="2.5" fill="#ffffff"/>
+        <circle cx="44" cy="26" r="2.5" fill="#ffffff"/>
+      </svg>
+      <h3>Contact + négociation</h3>
+      <ul>
+        <li>Contacter le fournisseur</li>
+        <li>Poser les bonnes questions</li>
+        <li>Négocier et comparer</li>
+      </ul>
+    </div>
+
+    <div class="day-card d4">
+      <div class="day-top">
+        <div class="day-number">4</div>
+        <div class="day-label">JOUR 4</div>
+      </div>
+      <svg class="day-icon" viewBox="0 0 64 64">
+        <rect x="8" y="18" width="48" height="32" rx="5" fill="#e0447a"/>
+        <rect x="8" y="26" width="48" height="6" fill="#ffffff"/>
+        <circle cx="46" cy="42" r="4" fill="#ffffff"/>
+      </svg>
+      <h3>Commande + paiement</h3>
+      <ul>
+        <li>Vérifier la commande</li>
+        <li>Donner l'adresse Intercargo</li>
+        <li>Payer en sécurité</li>
+      </ul>
+    </div>
+
+    <div class="day-card d5">
+      <div class="day-top">
+        <div class="day-number">5</div>
+        <div class="day-label">JOUR 5</div>
+      </div>
+      <svg class="day-icon" viewBox="0 0 64 64">
+        <path d="M8 38 L56 38 L48 54 L16 54 Z" fill="#2e9e6b"/>
+        <rect x="26" y="20" width="12" height="18" rx="3" fill="#2e9e6b"/>
+        <circle cx="32" cy="16" r="4" fill="#2e9e6b"/>
+      </svg>
+      <h3>Livraison + bénéfice</h3>
+      <ul>
+        <li>Suivre l'expédition</li>
+        <li>Calculer le coût réel</li>
+        <li>Fixer son prix et son bénéfice</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="includes-wrap">
+  <div class="includes-box">
+    <div class="includes-title">
+      <span class="gift-circle">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f7941e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="8" width="18" height="4" rx="1"/>
+          <path d="M12 8v13"/>
+          <path d="M19 12v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7"/>
+          <path d="M12 8c-1.5-3-5-3-5-1s2 1 5 1"/>
+          <path d="M12 8c1.5-3 5-3 5-1s-2 1-5 1"/>
+        </svg>
+      </span>
+      <h2>Ce que comprend la formation</h2>
+    </div>
+
+    <div class="includes-grid">
+
+      <div class="includes-item">
+        <span class="includes-icon blue">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+            <polygon points="6,4 20,12 6,20"/>
+          </svg>
+        </span>
+        <p>5 jours<br>de formation</p>
+      </div>
+
+      <div class="includes-item">
+        <span class="includes-icon blue">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6"/>
+            <line x1="8" y1="13" x2="16" y2="13"/>
+            <line x1="8" y1="17" x2="16" y2="17"/>
+          </svg>
+        </span>
+        <p>Vidéos<br>pratiques</p>
+      </div>
+
+      <div class="includes-item">
+        <span class="includes-icon red">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="#ffffff">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" opacity="0.35"/>
+            <path d="M14 2v6h6" opacity="0.35"/>
+            <text x="12" y="16" font-size="8" font-weight="900" fill="#ffffff" text-anchor="middle">PDF</text>
+          </svg>
+        </span>
+        <p>Supports<br>PDF</p>
+      </div>
+
+      <div class="includes-item">
+        <span class="includes-icon purple">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+            <path d="M2 2l7.586 7.586"/>
+            <circle cx="11" cy="11" r="2"/>
+          </svg>
+        </span>
+        <p>Exercices</p>
+      </div>
+
+      <div class="includes-item">
+        <span class="includes-icon green">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="3"/>
+            <path d="M8 12l3 3 5-6"/>
+          </svg>
+        </span>
+        <p>Évaluation<br>finale</p>
+      </div>
+
+      <div class="includes-item">
+        <span class="includes-icon orange">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="3" width="14" height="18" rx="2"/>
+            <path d="M9 3v3h6V3"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M10 15l-1 4 3-2 3 2-1-4"/>
+          </svg>
+        </span>
+        <p>Certificat<br>de formation</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="proof-wrap">
+  <div class="proof-box">
+
+    <div class="proof-header">
+      <svg class="proof-icon" viewBox="0 0 64 64">
+        <circle cx="32" cy="24" r="10" fill="none" stroke="#f7941e" stroke-width="4"/>
+        <path d="M12 54c0-11 9-18 20-18s20 7 20 18" fill="none" stroke="#f7941e" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="32" cy="24" r="4" fill="#0a1f3d"/>
+      </svg>
+      <div>
+        <h2>Ils ont déjà suivi la formation</h2>
+        <p>Ils ont terminé les 5 jours et reçu leur attestation de fin de formation.</p>
+      </div>
+    </div>
+
+    <div class="proof-photo">
+      <img src="assets/attestation-exemple.jpg" alt="Diplômés tenant leur attestation de fin de formation ProLevelFormation">
+    </div>
+
+    <p class="proof-caption">Rejoins <strong>Akpovi Grâce</strong>, <strong>Togbé Yannick</strong> et <strong>Sèbe Aïcha</strong> — bientôt toi aussi avec ton attestation !</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-box">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+        <div class="logo-block">
+          <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,18 90,34 50,50 10,34" fill="#ffffff"/>
+            <polygon points="50,50 90,34 90,40 50,56" fill="#ffffff"/>
+            <line x1="24" y1="38" x2="24" y2="58" stroke="#ffffff" stroke-width="3"/>
+            <circle cx="24" cy="60" r="3.5" fill="#ffffff"/>
+            <path d="M20 62
+                     C 30 58, 40 62, 44 72
+                     C 46 66, 54 62, 62 64
+                     C 56 66, 52 72, 54 80
+                     C 46 76, 38 78, 34 84
+                     C 34 76, 28 68, 18 66
+                     Z"
+                  fill="#f7941e"/>
+          </svg>
+          <h3>ProLevel<span>Formation</span></h3>
+        </div>
+        <p>Formation pratique pour apprendre à commander sur Alibaba, de la recherche du produit jusqu'à sa réception au Bénin.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>La formation</h4>
+        <ul>
+          <li><span class="dot"></span>Programme des 5 jours</li>
+          <li><span class="dot"></span>Ce que comprend la formation</li>
+          <li><span class="dot"></span>Attestation de fin de formation</li>
+          <li><span class="dot"></span>Inscription</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><span class="dot"></span>Cotonou, Bénin</li>
+          <li><span class="dot"></span>+229 00 00 00 00</li>
+          <li><span class="dot"></span>contact@prolevelformation.com</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 ProLevelFormation. Tous droits réservés.</div>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M14 8h3V4h-3c-2.8 0-5 2.2-5 5v3H6v4h3v8h4v-8h3l1-4h-4V9c0-.6.4-1 1-1z"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" aria-label="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#ffffff"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.6 14.2c-.2.6-1.4 1.2-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-5-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1s.8-2.2 1.1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.4 0 .6-.1.2-.2.4-.4.6-.2.2-.4.5-.6.6-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.3 2.6 1.7 3 1.9.4.2.6.1.8-.1.2-.2.9-1 1.1-1.4.2-.4.4-.3.7-.2.3.1 1.9.9 2.2 1.1.3.2.5.2.6.4.1.2.1.9-.1 1.5z"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  // ⚠️ Remplace par l'URL de ton backend une fois déployé sur Render
+  // (ex: https://prolevelformation-backend.onrender.com)
+  const API_BASE = "https://TON-BACKEND.onrender.com";
+  const PLACES_API_URL = API_BASE + "/api/places";
+
+  async function updateSeatsCount(){
+    try {
+      const res = await fetch(PLACES_API_URL, { cache: "no-store" });
+      if(!res.ok) throw new Error("Réponse API invalide");
+      const data = await res.json(); // attend { total: 20, occupees: 8 }
+
+      const total = data.total;
+      const occupees = data.occupees;
+      const disponibles = Math.max(total - occupees, 0);
+
+      document.getElementById("seatsTotal").textContent = total;
+      document.getElementById("seatsAvailable").textContent = disponibles;
+      document.getElementById("seatsOccupied").textContent = occupees;
+
+      const pct = total > 0 ? Math.min((occupees/total)*100, 100) : 0;
+      document.getElementById("progressFill").style.width = pct + "%";
+
+      const progressCaption = document.getElementById("progressCaption");
+      const inscriptionCta = document.getElementById("inscriptionCta");
+
+      if (disponibles <= 0) {
+        progressCaption.innerHTML = "<strong>Formation complète</strong> — inscriptions fermées";
+        inscriptionCta.textContent = "Complet";
+        inscriptionCta.style.pointerEvents = "none";
+        inscriptionCta.style.opacity = "0.5";
+        inscriptionCta.removeAttribute("href");
+      } else {
+        progressCaption.innerHTML =
+          "<strong>" + disponibles + " / " + total + "</strong> places disponibles";
+      }
+    } catch(err) {
+      // En cas d'échec (API down, etc.), on garde les valeurs déjà affichées dans le HTML
+      console.warn("Impossible de charger le nombre de places en direct :", err);
+    }
+  }
+
+  updateSeatsCount();
+</script>
+</body>
+</html>

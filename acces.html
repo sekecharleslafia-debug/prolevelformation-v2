@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=1080">
+<title>ProLevelFormation — Accès à la formation</title>
+<style>
+  :root{
+    --navy-dark:#0a1f3d;
+    --navy-deep:#081733;
+    --orange:#f7941e;
+    --orange-light:#ffb347;
+    --white:#ffffff;
+    --gray:#5b6472;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{ font-family:'times new roman', Arial, sans-serif; background:#eef4fb; color:var(--navy-dark); }
+
+  header{
+    display:flex; align-items:center; justify-content:center;
+    padding:18px 48px; background:var(--white);
+  }
+  .logo-block{ display:flex; align-items:center; gap:12px; }
+  .logo-icon{ width:44px; height:44px; flex-shrink:0; }
+  .logo-text h1{ font-size:50px; line-height:1; color:var(--navy-dark); }
+  .logo-text h1 span{ color:var(--orange); }
+  .logo-text p{ font-size:30px; letter-spacing:0.5px; color:var(--gray); margin-top:2px; }
+
+  .stepper{
+    max-width:900px; margin:34px auto 0; display:flex;
+    align-items:flex-start; justify-content:space-between; padding:0 24px;
+  }
+  .step{ display:flex; flex-direction:column; align-items:center; gap:10px; position:relative; flex:1; }
+  .step-circle{
+    width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-weight:1000; font-size:30px; color:#ffffff; background:#c3ccdb; z-index:2;
+  }
+  .step.done .step-circle{ background:#2e9e6b; }
+  .step-label{ font-size:25px; font-weight:700; color:var(--gray); text-align:center; }
+  .step.done .step-label{ color:var(--navy-dark); }
+  .step-line{ position:absolute; top:19px; left:50%; width:100%; height:2px; background:#c3ccdb; z-index:1; }
+  .step.done .step-line{ background:#2e9e6b; }
+  .step:last-child .step-line{ display:none; }
+
+  .thanks-wrap{
+    max-width:880px; margin:60px auto 80px; padding:0 24px;
+    display:flex; justify-content:center;
+  }
+  .thanks-card{
+    width:100%;
+    background:#ffffff;
+    border-radius:22px;
+    box-shadow:0 15px 40px rgba(10,31,61,0.10);
+    padding:50px 44px;
+    text-align:center;
+  }
+  .gift-circle{
+    width:90px; height:90px; border-radius:50%;
+    background:#fdf1e0;
+    display:flex; align-items:center; justify-content:center;
+    margin:0 auto 26px;
+  }
+  .thanks-card h2{ font-size:60px; color:var(--navy-dark); margin-bottom:18px; line-height:1.3; }
+  .thanks-card p{ font-size:40px; color:var(--gray); line-height:1.65; margin-bottom:16px; }
+  .thanks-card p strong{ color:var(--navy-dark); }
+
+  .date-badge{
+    display:inline-block;
+    background:#eaf2fb;
+    color:var(--navy-dark);
+    font-weight:1000;
+    font-size:60px;
+    padding:12px 22px;
+    border-radius:14px;
+    margin:14px 0 22px;
+  }
+
+  .steps-mini{
+    text-align:left;
+    background:#f3f7fc;
+    border-radius:16px;
+    padding:22px 24px;
+    margin:24px 0;
+  }
+  .steps-mini p{ font-size:40px; color:var(--navy-dark); margin-bottom:10px; font-weight:1000; }
+  .steps-mini ol{ padding-left:20px; }
+  .steps-mini li{ font-size:30px; color:var(--gray); margin-bottom:8px; line-height:1.5; }
+
+  .signoff{ font-size:40px; font-weight:700; color:var(--navy-dark); margin-top:22px; }
+
+  @media (max-width:560px){
+    header{ padding:14px 20px; }
+    .logo-text h1{ font-size:24px; }
+    .thanks-card{ padding:34px 22px; }
+    .thanks-card h2{ font-size:23px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,18 90,34 50,50 10,34" fill="#0a1f3d"/>
+      <polygon points="50,50 90,34 90,40 50,56" fill="#0a1f3d"/>
+      <line x1="24" y1="38" x2="24" y2="58" stroke="#0a1f3d" stroke-width="3"/>
+      <circle cx="24" cy="60" r="3.5" fill="#0a1f3d"/>
+      <path d="M20 62
+               C 30 58, 40 62, 44 72
+               C 46 66, 54 62, 62 64
+               C 56 66, 52 72, 54 80
+               C 46 76, 38 78, 34 84
+               C 34 76, 28 68, 18 66
+               Z"
+            fill="#f7941e"/>
+    </svg>
+    <div class="logo-text">
+      <h1>ProLevel<span>Formation</span></h1>
+      <p>APPRENDRE &bull; ENTREPRENDRE &bull; RÉUSSIR</p>
+    </div>
+  </div>
+</header>
+
+<div class="stepper">
+  <div class="step done">
+    <div class="step-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+    <div class="step-line"></div>
+    <div class="step-label">Inscription</div>
+  </div>
+  <div class="step done">
+    <div class="step-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+    <div class="step-line"></div>
+    <div class="step-label">Paiement</div>
+  </div>
+  <div class="step done">
+    <div class="step-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+    <div class="step-line"></div>
+    <div class="step-label">Confirmation</div>
+  </div>
+  <div class="step done">
+    <div class="step-circle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></div>
+    <div class="step-label">Accès à la formation</div>
+  </div>
+</div>
+
+<div class="thanks-wrap">
+  <div class="thanks-card">
+    <div class="gift-circle">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#f7941e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="8" width="18" height="4" rx="1"/>
+        <path d="M12 8v13"/>
+        <path d="M19 12v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7"/>
+        <path d="M12 8c-1.5-3-5-3-5-1s2 1 5 1"/>
+        <path d="M12 8c1.5-3 5-3 5-1s-2 1-5 1"/>
+      </svg>
+    </div>
+
+    <h2 id="thanks-title">Merci de participer à notre formation :<br>Apprendre à commander sur Alibaba</h2>
+
+    <p>Veuillez consulter votre e-mail pour trouver vos informations de connexion et le lien de la formation.</p>
+
+    <div class="date-badge">Du 14 Septembre au 18 Septembre.Chaque 20H</div>
+
+    <div class="steps-mini">
+      <p>Le jour du début de la formation :</p>
+      <ol>
+        <li>Rendez-vous dans votre boîte mail</li>
+        <li>Cliquez sur le lien de la formation</li>
+        <li>Connectez-vous pour suivre les cours pratiques</li>
+      </ol>
+    </div>
+
+    <p class="signoff">Bonne formation à vous !</p>
+  </div>
+</div>
+
+<script>
+  var nom = localStorage.getItem('plf_nom');
+  if(nom){
+    document.getElementById('thanks-title').innerHTML =
+      'Merci de participer M./Mme <strong>' + nom + '</strong><br>à notre formation : Apprendre à commander sur Alibaba';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProLevelFormation — Créer mon compte</title>
+<style>
+  :root{
+    --navy-dark:#0a1f3d;
+    --navy-deep:#081733;
+    --orange:#f7941e;
+    --orange-light:#ffb347;
+    --white:#ffffff;
+    --gray:#5b6472;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'times new roman', Arial, sans-serif;
+    background:#eef4fb;
+    color:var(--navy-dark);
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 48px;
+    background:var(--white);
+  }
+  .logo-block{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .logo-icon{ width:44px; height:44px; flex-shrink:0; }
+  .logo-text h1{
+    font-size:34px;
+    line-height:1;
+    color:var(--navy-dark);
+  }
+  .logo-text h1 span{ color:var(--orange); }
+  .logo-text p{
+    font-size:12px;
+    letter-spacing:0.5px;
+    color:var(--gray);
+    margin-top:2px;
+  }
+  .back-link{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--navy-dark);
+    font-weight:700;
+    font-size:17px;
+    text-decoration:none;
+  }
+
+  /* ===== FORM CARD ===== */
+  .signup-wrap{
+    padding:60px 24px 80px;
+    display:flex;
+    justify-content:center;
+  }
+  .signup-card{
+    width:100%;
+    max-width:700px;
+    background:#ffffff;
+    border-radius:22px;
+    box-shadow:0 15px 40px rgba(10,31,61,0.10);
+    padding:44px 46px 40px;
+  }
+
+  .signup-head{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:34px;
+  }
+  .signup-head .head-icon{
+    width:48px;
+    height:48px;
+    flex-shrink:0;
+  }
+  .signup-head h2{
+    font-size:32px;
+    color:var(--navy-dark);
+    margin-bottom:8px;
+  }
+  .signup-head p{
+    font-size:16px;
+    color:var(--gray);
+    line-height:1.5;
+  }
+
+  .field{
+    margin-bottom:24px;
+  }
+  .field label{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:800;
+    font-size:16px;
+    color:var(--navy-dark);
+    margin-bottom:10px;
+  }
+  .field label .field-icon{
+    width:20px;
+    height:20px;
+    flex-shrink:0;
+  }
+  .field label .required{
+    color:#e0447a;
+  }
+
+  .field-input-wrap{
+    position:relative;
+  }
+  .field input{
+    width:100%;
+    padding:15px 18px;
+    border:1.5px solid #dbe3ee;
+    border-radius:12px;
+    font-size:15px;
+    color:var(--navy-dark);
+    background:#fbfcfe;
+    outline:none;
+    font-family:inherit;
+  }
+  .field input::placeholder{ color:#9aa6b8; }
+  .field input:focus{ border-color:var(--orange); }
+
+  .eye-toggle{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:var(--navy-dark);
+  }
+
+  .submit-btn{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:var(--orange);
+    color:#ffffff;
+    font-weight:800;
+    font-size:19px;
+    padding:18px;
+    border:none;
+    border-radius:14px;
+    margin-top:10px;
+    cursor:pointer;
+    box-shadow:0 10px 22px rgba(247,148,30,0.35);
+  }
+  .submit-btn:hover{ background:#e8850f; }
+
+  @media (max-width:560px){
+    header{ padding:16px 20px; }
+    .logo-text h1{ font-size:24px; }
+    .back-link span.txt{ display:none; }
+    .signup-card{ padding:30px 22px 28px; }
+    .signup-head h2{ font-size:26px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,18 90,34 50,50 10,34" fill="#0a1f3d"/>
+      <polygon points="50,50 90,34 90,40 50,56" fill="#0a1f3d"/>
+      <line x1="24" y1="38" x2="24" y2="58" stroke="#0a1f3d" stroke-width="3"/>
+      <circle cx="24" cy="60" r="3.5" fill="#0a1f3d"/>
+      <path d="M20 62
+               C 30 58, 40 62, 44 72
+               C 46 66, 54 62, 62 64
+               C 56 66, 52 72, 54 80
+               C 46 76, 38 78, 34 84
+               C 34 76, 28 68, 18 66
+               Z"
+            fill="#f7941e"/>
+    </svg>
+    <div class="logo-text">
+      <h1>ProLevel<span>Formation</span></h1>
+      <p>APPRENDRE &bull; ENTREPRENDRE &bull; RÉUSSIR</p>
+    </div>
+  </div>
+
+  <a href="index.html" class="back-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5"/>
+      <path d="M12 19l-7-7 7-7"/>
+    </svg>
+    <span class="txt">Retour à l'accueil</span>
+  </a>
+</header>
+
+<div class="signup-wrap">
+  <div class="signup-card">
+
+    <div class="signup-head">
+      <svg class="head-icon" viewBox="0 0 24 24" fill="none" stroke="#f7941e" stroke-width="1.8">
+        <circle cx="10" cy="8" r="4" fill="#f7941e" stroke="none"/>
+        <path d="M3 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" fill="#f7941e" stroke="none"/>
+        <circle cx="19" cy="6" r="3.4" fill="#f7941e" stroke="none"/>
+        <path d="M19 4.5v3M17.5 6h3" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <h2>Créer mon compte</h2>
+        <p>Remplis le formulaire ci-dessous pour t'inscrire à la formation.</p>
+      </div>
+    </div>
+
+    <form>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24" fill="#2f7fe0"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          Nom et prénom <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="text" id="reg-nom" placeholder="Ex : Koffi Adéla">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24"><path fill="#ea4335" d="M2 6l10 7 10-7v2l-10 7-10-7z"/><path fill="#4285f4" d="M2 6h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" opacity="0.15"/></svg>
+          Adresse Gmail <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="email" id="reg-email" placeholder="Ex : exemple@gmail.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24" fill="#25d366"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z"/></svg>
+          WhatsApp <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="tel" id="reg-whatsapp" placeholder="Ex : 01 23 45 67 89">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24" fill="#0a1f3d"><path d="M12 2C7.6 2 4 5.6 4 10c0 6 8 12 8 12s8-6 8-12c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg>
+          Ville <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="text" id="reg-ville" placeholder="Ex : Cotonou">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24" fill="#0a1f3d"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="#0a1f3d" stroke-width="1.8"/></svg>
+          Mot de passe <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="password" placeholder="Minimum 6 caractères">
+          <span class="eye-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>
+          <svg class="field-icon" viewBox="0 0 24 24" fill="#0a1f3d"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="#0a1f3d" stroke-width="1.8"/></svg>
+          Confirmer le mot de passe <span class="required">*</span>
+        </label>
+        <div class="field-input-wrap">
+          <input type="password" placeholder="Retape ton mot de passe">
+          <span class="eye-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </span>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><circle cx="9" cy="8" r="4"/><path d="M1 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/><path d="M19 8v6M16 11h6" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/></svg>
+        Créer mon compte &rarr;
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+<script>
+  // ⚠️ Remplace par l'URL de ton backend une fois déployé sur Render
+  const API_BASE = "https://TON-BACKEND.onrender.com";
+
+  // Afficher / masquer le mot de passe au clic sur l'œil
+  document.querySelectorAll('.eye-toggle').forEach(function(eye){
+    eye.addEventListener('click', function(){
+      var input = eye.previousElementSibling;
+      input.type = (input.type === 'password') ? 'text' : 'password';
+    });
+  });
+
+  // Le bouton "Créer mon compte" enregistre les infos du candidat
+  // côté serveur (en attente de paiement), puis conduit à la page
+  // de paiement. C'est ce même email qui recevra le lien d'accès
+  // une fois le paiement confirmé.
+  document.querySelector('form').addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    var nom = document.getElementById('reg-nom').value.trim();
+    var email = document.getElementById('reg-email').value.trim();
+    var whatsapp = document.getElementById('reg-whatsapp').value.trim();
+    var ville = document.getElementById('reg-ville').value.trim();
+
+    if(!nom || !email){
+      alert('Merci de renseigner au moins ton nom et ton email.');
+      return;
+    }
+
+    localStorage.setItem('plf_nom', nom);
+    localStorage.setItem('plf_email', email);
+
+    var submitBtn = document.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch(API_BASE + '/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nom, email, whatsapp, ville })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.registrationId) {
+        throw new Error(data.error || "Inscription impossible, réessaie.");
+      }
+      // On garde cet id pour le relier à la transaction de paiement.
+      localStorage.setItem('plf_registration_id', data.registrationId);
+      window.location.href = 'paiement.html';
+    } catch(err) {
+      alert(err.message || "Une erreur est survenue, réessaie.");
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=1080">
+<title>ProLevelFormation — Paiement</title>
+<style>
+  :root{
+    --navy-dark:#0a1f3d;
+    --navy-deep:#081733;
+    --orange:#f7941e;
+    --orange-light:#ffb347;
+    --white:#ffffff;
+    --gray:#5b6472;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'times new roman', Arial, sans-serif;
+    background:#eef4fb;
+    color:var(--navy-dark);
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:18px 48px;
+    background:var(--white);
+  }
+  .logo-block{ display:flex; align-items:center; gap:12px; }
+  .logo-icon{ width:44px; height:44px; flex-shrink:0; }
+  .logo-text h1{ font-size:34px; line-height:1; color:var(--navy-dark); }
+  .logo-text h1 span{ color:var(--orange); }
+  .logo-text p{ font-size:12px; letter-spacing:0.5px; color:var(--gray); margin-top:2px; }
+  .back-link{
+    display:flex; align-items:center; gap:8px;
+    color:var(--navy-dark); font-weight:700; font-size:17px; text-decoration:none;
+  }
+
+  /* ===== STEPPER ===== */
+  .stepper{
+    max-width:900px;
+    margin:14px auto 0;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    padding:0 24px;
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    position:relative;
+    flex:1;
+  }
+  .step-circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    font-size:30px;
+    color:#ffffff;
+    background:#c3ccdb;
+    z-index:2;
+  }
+  .step.done .step-circle{ background:#2e9e6b; }
+  .step.current .step-circle{ background:#2f7fe0; }
+  .step-label{
+    font-size:26px;
+    font-weight:00;
+    color:var(--gray);
+    text-align:center;
+  }
+  .step.current .step-label, .step.done .step-label{ color:var(--navy-dark); }
+  .step-line{
+    position:absolute;
+    top:19px;
+    left:50%;
+    width:100%;
+    height:2px;
+    background:#c3ccdb;
+    z-index:1;
+  }
+  .step.done .step-line{ background:#2e9e6b; }
+  .step:last-child .step-line{ display:none; }
+
+  /* ===== HERO CARD ===== */
+  .promo-wrap{ max-width:900px; margin:30px auto 0; padding:0 24px; }
+  .promo-card{
+    position:relative;
+    background-image:
+      linear-gradient(90deg, var(--navy-deep) 0%, rgba(10,31,61,0.8) 40%, rgba(10,31,61,0.25) 75%, rgba(10,31,61,0) 100%),
+      url('assets/hero-bg.png');
+    background-size:cover;
+    background-position:center;
+    border-radius:20px;
+    padding:80px 20px;
+    color:#ffffff;
+    overflow:hidden;
+    min-height:400px;
+  }
+  .promo-badge{
+    display:inline-block;
+    background:var(--orange);
+    color:var(--navy-deep);
+    font-weight:900;
+    font-size:25px;
+    letter-spacing:0.5px;
+    padding:6px 14px;
+    border-radius:16px;
+    margin-bottom:14px;
+  }
+  .promo-card h2{ font-size:30px; margin-bottom:10px; }
+  .promo-card h2 span{ color:var(--orange-light); }
+  .promo-card p{ font-size:25px; color:#d7deea; max-width:340px; line-height:1.5; margin-bottom:18px; }
+  .promo-stats{ display:flex; align-items:center; gap:18px; }
+  .promo-stat{ display:flex; align-items:center; gap:10px; }
+  .promo-stat strong{ display:block; font-size:25px; }
+  .promo-stat span{ font-size:23px; color:#c9d2e0; }
+  .promo-divider{ width:1px; height:34px; background:rgba(255,255,255,0.25); }
+
+  /* ===== ORDER CARD ===== */
+  .order-wrap{ max-width:900px; margin:26px auto; padding:0 24px 60px; }
+  .order-card{
+    background:#ffffff;
+    border-radius:20px;
+    box-shadow:0 12px 30px rgba(10,31,61,0.08);
+    padding:30px 32px;
+    margin-bottom:22px;
+  }
+  .order-title{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:22px;
+  }
+  .order-title .icon-circle{
+    width:42px; height:42px; border-radius:50%;
+    background:var(--navy-dark);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .order-title h3{ font-size:34px; color:var(--navy-dark); }
+
+  .order-line{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    background:#f3f7fc;
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:16px;
+  }
+  .order-line-left{ display:flex; align-items:center; gap:14px; }
+  .order-line-left .cap-icon{ width:30px; height:30px; flex-shrink:0; }
+  .order-line-left strong{ display:block; font-size:23px; color:var(--navy-dark); }
+  .order-line-left span{ font-size:20px; color:var(--gray); }
+  .order-badge{
+    background:#dfeaf9;
+    color:var(--navy-dark);
+    font-weight:900;
+    font-size:20px;
+    padding:7px 14px;
+    border-radius:14px;
+    white-space:nowrap;
+  }
+
+  .price-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#f3f7fc;
+    border-radius:14px;
+    padding:18px;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .price-row .price-label{ font-size:25px; color:var(--gray); margin-bottom:4px; }
+  .price-row .price-value{ font-size:50px; font-weight:1000; color:var(--orange); }
+  .price-secure{ display:flex; align-items:center; gap:10px; font-size:14px; color:var(--navy-dark); font-weight:700; }
+  .price-secure .shield-icon{ width:26px; height:26px; flex-shrink:0; }
+  .price-sep{ width:1px; height:36px; background:#d6dfea; }
+
+  /* ===== PAYMENT METHOD ===== */
+  .method-option{
+    border:1.5px solid #e1e7f0;
+    border-radius:16px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:16px;
+    cursor:pointer;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .method-option.selected{ border-color:#2f7fe0; box-shadow:0 0 0 3px rgba(47,127,224,0.12); }
+  .method-left{ display:flex; align-items:center; gap:16px; }
+  .method-icon{
+    width:50px; height:50px; border-radius:12px;
+    background:var(--navy-dark);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .method-left strong{ display:block; font-size:25px; color:var(--navy-dark); }
+  .method-left span{ font-size:18px; color:var(--gray); }
+  .method-logos{ display:flex; align-items:center; gap:8px; }
+  .op-badge{
+    font-weight:1000;
+    font-size:35px;
+    padding:6px 10px;
+    border-radius:8px;
+    color:#ffffff;
+    white-space:nowrap;
+  }
+  .op-badge.mtn{ background:#ffcc08; color:#1a1a1a; }
+  .op-badge.moov{ background:#1e5fd6; }
+  .op-badge.celtiis{ background:#00a651; }
+  .radio-dot{
+    width:22px; height:22px; border-radius:50%;
+    border:2px solid #c3ccdb;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .radio-dot::after{
+    content:"";
+    width:11px; height:11px; border-radius:50%;
+    background:transparent;
+  }
+  .method-option.selected .radio-dot{ border-color:#2f7fe0; }
+  .method-option.selected .radio-dot::after{ background:#2f7fe0; }
+
+  /* ===== PHONE INPUT ===== */
+  .phone-section{
+    display:none;
+    background:#f3f7fc;
+    border-radius:14px;
+    padding:20px;
+    margin:-2px 0 16px;
+  }
+  .phone-section label{
+    display:block;
+    font-size:39px;
+    font-weight:800;
+    color:var(--navy-dark);
+    margin-bottom:10px;
+  }
+  .phone-section label span{ color:#2f7fe0; }
+  .phone-input-wrap{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#ffffff;
+    border:1.5px solid #d6dfea;
+    border-radius:12px;
+    padding:12px 16px;
+  }
+  .phone-input-wrap span.prefix{
+    font-size:43px;
+    font-weight:800;
+    color:var(--gray);
+    border-right:1px solid #d6dfea;
+    padding-right:12px;
+  }
+  .phone-input-wrap input{
+    border:none;
+    outline:none;
+    font-size:40px;
+    font-family:inherit;
+    color:var(--navy-dark);
+    flex:1;
+    min-width:0;
+  }
+  .phone-hint{
+    font-size:35px;
+    color:var(--gray);
+    margin-top:8px;
+  }
+
+  .pay-btn{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    background:var(--orange);
+    color:#ffffff;
+    font-weight:1000;
+    font-size:50px;
+    padding:19px;
+    border:none;
+    border-radius:14px;
+    margin-top:6px;
+    cursor:pointer;
+    box-shadow:0 10px 22px rgba(247,148,30,0.35);
+  }
+  .pay-btn:hover{ background:#e8850f; }
+  .pay-btn:disabled{ background:#f3c384; cursor:not-allowed; box-shadow:none; }
+
+  /* ===== WAITING BOX (attente de confirmation sur le téléphone) ===== */
+  .waiting-box{
+    display:none;
+    align-items:center;
+    gap:16px;
+    background:#eaf2fb;
+    border:1.5px solid #cfe0f5;
+    border-radius:14px;
+    padding:18px 20px;
+    margin-top:16px;
+  }
+  .waiting-box .spinner{
+    width:34px; height:34px;
+    border:4px solid #cfe0f5;
+    border-top-color:#2f7fe0;
+    border-radius:50%;
+    flex-shrink:0;
+    animation:spin 0.9s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .waiting-box p{ font-size:18px; color:var(--navy-dark); line-height:1.5; }
+  .waiting-box p strong{ color:#2f7fe0; }
+  .waiting-error{
+    display:none;
+    background:#fbe8ef;
+    border:1.5px solid #f3c2d4;
+    color:#a3204f;
+    border-radius:14px;
+    padding:14px 18px;
+    margin-top:16px;
+    font-size:17px;
+    font-weight:700;
+  }
+
+  .trust-row{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:16px;
+    margin-top:22px;
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:13px;
+    color:var(--navy-dark);
+    font-weight:700;
+    flex:1 1 200px;
+  }
+  .trust-item .t-icon{ width:26px; height:26px; flex-shrink:0; }
+  .trust-item span.sub{ display:block; font-weight:400; color:var(--gray); font-size:12px; }
+
+  @media (max-width:700px){
+    header{ padding:14px 20px; }
+    .logo-text h1{ font-size:22px; }
+    .back-link span.txt{ display:none; }
+    .stepper{ padding:0 8px; }
+    .step-label{ font-size:11px; }
+    .promo-card h2{ font-size:24px; }
+    .order-card{ padding:22px; }
+    .price-row{ flex-direction:column; align-items:flex-start; }
+    .price-sep{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-block">
+    <svg class="logo-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="50,18 90,34 50,50 10,34" fill="#0a1f3d"/>
+      <polygon points="50,50 90,34 90,40 50,56" fill="#0a1f3d"/>
+      <line x1="24" y1="38" x2="24" y2="58" stroke="#0a1f3d" stroke-width="3"/>
+      <circle cx="24" cy="60" r="3.5" fill="#0a1f3d"/>
+      <path d="M20 62
+               C 30 58, 40 62, 44 72
+               C 46 66, 54 62, 62 64
+               C 56 66, 52 72, 54 80
+               C 46 76, 38 78, 34 84
+               C 34 76, 28 68, 18 66
+               Z"
+            fill="#f7941e"/>
+    </svg>
+    <div class="logo-text">
+      <h1>ProLevel<span>Formation</span></h1>
+      <p>APPRENDRE &bull; ENTREPRENDRE &bull; RÉUSSIR</p>
+    </div>
+  </div>
+  <a href="inscription.html" class="back-link">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19 12H5"/>
+      <path d="M12 19l-7-7 7-7"/>
+    </svg>
+    <span class="txt">Retour</span>
+  </a>
+</header>
+
+<div class="stepper">
+  <div class="step done">
+    <div class="step-circle">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>
+    </div>
+    <div class="step-line"></div>
+    <div class="step-label">Inscription</div>
+  </div>
+  <div class="step current">
+    <div class="step-circle">2</div>
+    <div class="step-line"></div>
+    <div class="step-label">Paiement</div>
+  </div>
+  <div class="step">
+    <div class="step-circle">3</div>
+    <div class="step-line"></div>
+    <div class="step-label">Confirmation</div>
+  </div>
+  <div class="step">
+    <div class="step-circle">4</div>
+    <div class="step-line"></div>
+    <div class="step-label">Accès à la formation</div>
+  </div>
+</div>
+
+<div class="promo-wrap">
+  <div class="promo-card">
+    <span class="promo-badge">FORMATION EN LIGNE</span>
+    <h2>Commander sur <span>Alibaba</span></h2>
+    <p>De la recherche du produit jusqu'à sa réception au Bénin.</p>
+    <div class="promo-stats">
+      <div class="promo-stat">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <div><strong>5 jours</strong><span>de formation</span></div>
+      </div>
+      <div class="promo-divider"></div>
+      <div class="promo-stat">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/></svg>
+        <div><strong>100%</strong><span>en ligne</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="order-wrap">
+
+  <div class="order-card">
+    <div class="order-title">
+      <span class="icon-circle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#f7941e"><path d="M12 2l2 6h6l-5 4 2 7-5-4-5 4 2-7-5-4h6z"/></svg>
+      </span>
+      <h3>Détails de la commande</h3>
+    </div>
+
+    <div class="order-line">
+      <div class="order-line-left">
+        <svg class="cap-icon" viewBox="0 0 24 24" fill="#0a1f3d"><path d="M12 3L1 8l11 5 9-4.1V17h2V8z"/><path d="M5 12.5V17c0 1.7 3.1 3 7 3s7-1.3 7-3v-4.5l-7 3.1z"/></svg>
+        <div>
+          <strong>Formation : Commander sur Alibaba</strong>
+          <span>Accès immédiat après paiement</span>
+        </div>
+      </div>
+      <span class="order-badge">5 jours</span>
+    </div>
+
+    <div class="price-row">
+      <div>
+        <div class="price-label">Prix de la formation</div>
+        <div class="price-value">5 000 FCFA</div>
+      </div>
+      <div class="price-sep"></div>
+      <div class="price-secure">
+        <svg class="shield-icon" viewBox="0 0 24 24" fill="#0a1f3d"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4" stroke="#ffffff" stroke-width="2" fill="none"/></svg>
+        Paiement sécurisé<br>et 100% fiable
+      </div>
+    </div>
+  </div>
+
+  <div class="order-card">
+    <div class="order-title">
+      <span class="icon-circle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f7941e" stroke-width="1.8"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+      </span>
+      <div>
+        <h3 style="margin-bottom:2px;">Paiement</h3>
+        <p style="font-size:14px; color:var(--gray); font-weight:400;">Cliquez sur le bouton pour choisir votre moyen de paiement et payer en toute sécurité.</p>
+      </div>
+    </div>
+
+    <button id="pay-btn" class="pay-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="#ffffff" stroke-width="2"/></svg>
+      <span id="pay-btn-text">Payer maintenant &rarr;</span>
+    </button>
+
+    <div class="waiting-box" id="waiting-box">
+      <div class="spinner"></div>
+      <p>Redirection vers la confirmation...</p>
+    </div>
+
+    <div class="waiting-error" id="waiting-error"></div>
+
+    <div class="trust-row">
+      <div class="trust-item">
+        <svg class="t-icon" viewBox="0 0 24 24" fill="#0a1f3d"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/></svg>
+        <div>Paiement sécurisé<span class="sub">100% fiable</span></div>
+      </div>
+      <div class="trust-item">
+        <svg class="t-icon" viewBox="0 0 24 24" fill="#0a1f3d"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3" fill="none" stroke="#0a1f3d" stroke-width="1.8"/></svg>
+        <div>Vos informations<span class="sub">sont protégées</span></div>
+      </div>
+      <div class="trust-item">
+        <svg class="t-icon" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="1.8"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1v-6h3z"/><path d="M3 19a2 2 0 002 2h1v-6H3z"/></svg>
+        <div>Assistance disponible<span class="sub">en cas de besoin</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Widget officiel FedaPay : affiche la page de paiement (choix de l'opérateur,
+     saisie du numéro puis du code secret) dans une fenêtre/iframe FedaPay. -->
+<script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
+
+<script>
+(function(){
+  // ⚠️ Remplace par l'URL de ton backend une fois déployé sur Render
+  const API_BASE = "https://TON-BACKEND.onrender.com";
+
+  const payBtn       = document.getElementById('pay-btn');
+  const payBtnText   = document.getElementById('pay-btn-text');
+  const waitingBox   = document.getElementById('waiting-box');
+  const waitingError = document.getElementById('waiting-error');
+
+  // ⚠️ Remplace par ta clé PUBLIQUE FedaPay (jamais la clé secrète ici).
+  const FEDAPAY_PUBLIC_KEY = 'pk_live_XXXXXXXXXXXXXXXXXXXX';
+
+  // Vérifie dès l'ouverture de la page s'il reste de la place.
+  // (Le serveur re-vérifie aussi au moment du paiement : cette
+  // vérification ici sert juste à prévenir l'utilisateur tout de
+  // suite, sans qu'il ait à cliquer pour le découvrir.)
+  async function checkAvailability(){
+    try {
+      const res = await fetch(API_BASE + '/api/places', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.occupees >= data.total) {
+        payBtn.disabled = true;
+        payBtnText.textContent = 'Formation complète';
+        waitingError.textContent = "Toutes les places sont prises, les inscriptions sont fermées.";
+        waitingError.style.display = 'block';
+      }
+    } catch (e) {
+      // Si l'API ne répond pas, on laisse le bouton actif ;
+      // le serveur refusera quand même le paiement si complet.
+    }
+  }
+  checkAvailability();
+
+  function resetPayButton(){
+    payBtn.disabled = false;
+    payBtnText.innerHTML = 'Payer maintenant &rarr;';
+    waitingBox.style.display = 'none';
+  }
+
+  function showError(message){
+    waitingError.textContent = message;
+    waitingError.style.display = 'block';
+    resetPayButton();
+  }
+
+  payBtn.addEventListener('click', async function(){
+    waitingError.style.display = 'none';
+    payBtn.disabled = true;
+    payBtnText.textContent = 'Ouverture du paiement...';
+
+    try {
+      // Étape recommandée : le backend crée la transaction côté serveur
+      // (montant fixé côté serveur, pas côté client) et renvoie son id.
+      // Voir server-fedapay-example.js pour l'implémentation de /api/create-transaction.
+      const registrationId = localStorage.getItem('plf_registration_id');
+      if (!registrationId) {
+        throw new Error("Merci de d'abord remplir le formulaire d'inscription.");
+      }
+
+      const res = await fetch(API_BASE + '/api/create-transaction', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: 5000,
+          description: 'Formation - Commander sur Alibaba (ProLevelFormation)',
+          registrationId: registrationId
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.id) {
+        if (data.error === 'COMPLET') {
+          throw new Error("Toutes les places sont prises, les inscriptions sont fermées.");
+        }
+        throw new Error(data.error || "Impossible de démarrer le paiement. Réessayez.");
+      }
+
+      // Ouvre la page de paiement FedaPay : l'utilisateur y choisit son
+      // opérateur (MTN, Moov, Celtiis, carte...), saisit son numéro puis
+      // le code secret reçu, le tout géré directement par FedaPay.
+      FedaPay.init({
+        public_key: FEDAPAY_PUBLIC_KEY,
+        transaction: {
+          id: data.id,
+          amount: 5000,
+          description: 'Formation - Commander sur Alibaba (ProLevelFormation)'
+        },
+        onComplete: function (response) {
+          if (response.reason === FedaPay.CHECKOUT_COMPLETED &&
+              response.transaction && response.transaction.status === 'approved') {
+            waitingBox.style.display = 'flex';
+            payBtnText.textContent = 'Paiement confirmé...';
+            // Paiement validé (code secret confirmé côté FedaPay) : on passe
+            // directement à la page de confirmation.
+            window.location.href = 'confirmation.html';
+          } else {
+            showError("Le paiement a été annulé ou refusé. Vous pouvez réessayer.");
+          }
+        }
+      }).open();
+
+      resetPayButton();
+
+    } catch (err) {
+      showError(err.message || "Une erreur est survenue. Réessayez.");
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
