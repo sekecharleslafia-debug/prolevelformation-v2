@@ -58,7 +58,6 @@ const app = express();
 app.use(cors({
   origin: [
     'https://alibabaformation.netlify.app'
-]
     // Ajoute ici ton futur domaine personnalisé si tu en configures un.
   ]
 }));
