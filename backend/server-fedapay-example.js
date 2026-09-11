@@ -78,49 +78,57 @@ const FEDAPAY_BASE_URL = FEDAPAY_ENV === 'live'
 if (!FEDAPAY_SECRET_KEY) {
   console.warn('⚠️  FEDAPAY_SECRET_KEY manquante dans .env — les paiements échoueront.');
 }
-
 /* =========================================================
-   ENVOI D'EMAIL (Gmail via SMTP + Nodemailer)
+   ENVOI D'EMAIL (Brevo via API HTTPS — fonctionne même sur
+   le plan gratuit Render, qui bloque le SMTP classique)
    ========================================================= */
-const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD;
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
+const BREVO_SENDER_EMAIL = process.env.BREVO_SENDER_EMAIL;
+const BREVO_SENDER_NAME = process.env.BREVO_SENDER_NAME || 'ProLevelFormation';
 
-let mailTransporter = null;
-if (GMAIL_USER && GMAIL_APP_PASSWORD) {
-  mailTransporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD }
-  });
-} else {
-  console.warn('⚠️  GMAIL_USER / GMAIL_APP_PASSWORD manquants dans .env — les emails ne partiront pas.');
+if (!BREVO_API_KEY || !BREVO_SENDER_EMAIL) {
+  console.warn('⚠️  BREVO_API_KEY / BREVO_SENDER_EMAIL manquants — les emails ne partiront pas.');
 }
 
 async function envoyerEmailAcces(candidat) {
-  if (!mailTransporter) {
-    console.warn(`Email NON envoyé à ${candidat.email} (Gmail non configuré).`);
+  if (!BREVO_API_KEY || !BREVO_SENDER_EMAIL) {
+    console.warn(`Email NON envoyé à ${candidat.email} (Brevo non configuré).`);
     return;
   }
   try {
-    await mailTransporter.sendMail({
-      from: `"ProLevelFormation" <${GMAIL_USER}>`,
-      to: candidat.email,
-      subject: 'Ton paiement est confirmé — Accès à la formation Alibaba',
-      html: `
-        <p>Bonjour ${candidat.nom || ''},</p>
-        <p>Ton paiement de 5 000 FCFA a bien été reçu et confirmé. Merci pour ton inscription !</p>
-        <p><strong>Formation :</strong> Apprendre à commander sur Alibaba<br>
-           <strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
-        <p>Connecte-toi ici le jour du début de la formation :<br>
-           <a href="https://alibabaformation.netlify.app/acces.html">https://alibabaformation.netlify.app/acces.html</a></p>
-        <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
-      `
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'api-key': BREVO_API_KEY,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { name: BREVO_SENDER_NAME, email: BREVO_SENDER_EMAIL },
+        to: [{ email: candidat.email, name: candidat.nom || '' }],
+        subject: 'Ton paiement est confirmé — Accès à la formation Alibaba',
+        htmlContent: `
+          <p>Bonjour ${candidat.nom || ''},</p>
+          <p>Ton paiement de 5 000 FCFA a bien été reçu et confirmé. Merci pour ton inscription !</p>
+          <p><strong>Formation :</strong> Apprendre à commander sur Alibaba<br>
+             <strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
+          <p>Connecte-toi ici le jour du début de la formation :<br>
+             <a href="https://alibabaformation.netlify.app/acces.html">https://alibabaformation.netlify.app/acces.html</a></p>
+          <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
+        `
+      })
     });
+
+    if (!response.ok) {
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(JSON.stringify(errData));
+    }
+
     console.log(`Email d'accès envoyé à ${candidat.email}`);
   } catch (err) {
     console.error(`Erreur envoi email à ${candidat.email}:`, err.message);
   }
 }
-
 /* =========================================================
    STOCKAGE DES CANDIDATS (fichier JSON pour l'exemple)
    En production, remplace ceci par une vraie base de données.
