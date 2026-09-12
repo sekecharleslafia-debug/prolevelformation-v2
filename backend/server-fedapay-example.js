@@ -4,14 +4,60 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const crypto = require('crypto');
 const { MongoClient } = require('mongodb');
+const { Webhook } = require('fedapay');
 
 const app = express();
 
 app.use(cors({
   origin: [
-    'https://alibabaformation.netlify.app'
+    'https://alibabaformation.netlify.app',
+    'https://alibaba-acces.netlify.app'
   ]
 }));
+
+/* =========================================================
+   WEBHOOK FEDAPAY — DOIT être défini AVANT express.json()
+   car il a besoin du corps brut (non transformé) de la requête
+   pour vérifier la signature.
+   ========================================================= */
+const FEDAPAY_WEBHOOK_SECRET = process.env.FEDAPAY_WEBHOOK_SECRET;
+
+app.post('/api/fedapay-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  let event;
+  try {
+    const sig = req.headers['x-fedapay-signature'];
+    event = Webhook.constructEvent(req.body, sig, FEDAPAY_WEBHOOK_SECRET);
+  } catch (err) {
+    console.error('Signature webhook invalide:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  console.log('Webhook FedaPay reçu (vérifié):', event.name);
+
+  const transaction = event.entity;
+
+  if (event.name === 'transaction.approved' && transaction && transaction.id) {
+    const transactionId = String(transaction.id);
+    const { data: placesData, premiereFois } = await marquerPlaceOccupee(transactionId);
+    console.log(`Place enregistrée. Places occupées : ${placesData.occupees}/${placesData.total}`);
+
+    if (premiereFois) {
+      const candidat = await trouverInscriptionParTransaction(transactionId);
+
+      if (candidat) {
+        await mettreAJourInscription(candidat._id, { paye: true });
+        if (!candidat.emailEnvoye) {
+          await envoyerEmailAcces(candidat);
+          await mettreAJourInscription(candidat._id, { emailEnvoye: true });
+        }
+      } else {
+        console.warn(`Aucun candidat trouvé pour la transaction ${transactionId} — email non envoyé.`);
+      }
+    }
+  }
+
+  res.sendStatus(200);
+});
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -24,6 +70,9 @@ const FEDAPAY_BASE_URL = FEDAPAY_ENV === 'live'
 
 if (!FEDAPAY_SECRET_KEY) {
   console.warn('⚠️  FEDAPAY_SECRET_KEY manquante — les paiements échoueront.');
+}
+if (!FEDAPAY_WEBHOOK_SECRET) {
+  console.warn('⚠️  FEDAPAY_WEBHOOK_SECRET manquante — les webhooks seront refusés.');
 }
 
 /* =========================================================
@@ -137,7 +186,7 @@ async function envoyerEmailAcces(candidat) {
             <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
             <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.netlify.app">https://alibaba-acces.netlify.app</a>
           </p>
-          <p><strong>Dates :</strong> Du 17 Septembre au 20 Septembre, chaque jour à 20h</p>
+          <p><strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
         `
       })
@@ -231,39 +280,6 @@ app.post('/api/create-transaction', async (req, res) => {
     console.error('Erreur serveur /api/create-transaction:', err);
     return res.status(500).json({ error: 'Erreur serveur, réessayez plus tard.' });
   }
-});
-
-/* =========================================================
-   WEBHOOK FEDAPAY
-   ========================================================= */
-app.post('/api/fedapay-webhook', async (req, res) => {
-  const event = req.body;
-  console.log('Webhook FedaPay reçu:', JSON.stringify(event));
-
-  const eventName = event && event.name;
-  const transaction = event && event.entity;
-
-  if (eventName === 'transaction.approved' && transaction && transaction.id) {
-    const transactionId = String(transaction.id);
-    const { data: placesData, premiereFois } = await marquerPlaceOccupee(transactionId);
-    console.log(`Place enregistrée. Places occupées : ${placesData.occupees}/${placesData.total}`);
-
-    if (premiereFois) {
-      const candidat = await trouverInscriptionParTransaction(transactionId);
-
-      if (candidat) {
-        await mettreAJourInscription(candidat._id, { paye: true });
-        if (!candidat.emailEnvoye) {
-          await envoyerEmailAcces(candidat);
-          await mettreAJourInscription(candidat._id, { emailEnvoye: true });
-        }
-      } else {
-        console.warn(`Aucun candidat trouvé pour la transaction ${transactionId} — email non envoyé.`);
-      }
-    }
-  }
-
-  res.sendStatus(200);
 });
 
 /* =========================================================
