@@ -590,7 +590,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amount: 100,
+          amount: 5000,
           description: 'Formation - Commander sur Alibaba (ProLevelFormation)',
           registrationId: registrationId
         })
@@ -610,7 +610,7 @@
         public_key: FEDAPAY_PUBLIC_KEY,
         transaction: {
           id: data.id,
-          amount: 100,
+          amount: 5000,
           description: 'Formation - Commander sur Alibaba (ProLevelFormation)'
         },
         onComplete: function (response) {
