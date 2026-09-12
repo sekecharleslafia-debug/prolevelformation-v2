@@ -183,7 +183,7 @@ async function envoyerEmailAcces(candidat) {
           <p>
             <strong>Nom prénom :</strong> ${candidat.nom || ''}<br>
             <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
-            <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.onrender.com/acces.html">https://prolevelformation-v2-1.onrender.com/acces.html</a>
+            <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.onrender.com">https://alibaba-acces.onrender.com</a>
           </p>
           <p><strong>Dates :</strong> Du 17 Septembre au 20 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
