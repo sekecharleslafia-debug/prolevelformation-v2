@@ -249,7 +249,7 @@ app.post('/api/create-transaction', async (req, res) => {
       return res.status(400).json({ error: 'COMPLET' });
     }
 
-    const amount = 5000;
+    const amount = 100;
     const description = 'Formation - Commander sur Alibaba (ProLevelFormation)';
 
     const response = await fetch(`${FEDAPAY_BASE_URL}/transactions`, {
