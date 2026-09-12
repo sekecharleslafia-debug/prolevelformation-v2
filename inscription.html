@@ -267,7 +267,7 @@
           Mot de passe <span class="required">*</span>
         </label>
         <div class="field-input-wrap">
-          <input type="password" placeholder="Minimum 6 caractères">
+          <input type="password" id="reg-password" placeholder="Minimum 6 caractères">
           <span class="eye-toggle">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
           </span>
@@ -280,7 +280,7 @@
           Confirmer le mot de passe <span class="required">*</span>
         </label>
         <div class="field-input-wrap">
-          <input type="password" placeholder="Retape ton mot de passe">
+          <input type="password" id="reg-password-confirm" placeholder="Retape ton mot de passe">
           <span class="eye-toggle">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0a1f3d" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
           </span>
@@ -320,9 +320,19 @@
     var email = document.getElementById('reg-email').value.trim();
     var whatsapp = document.getElementById('reg-whatsapp').value.trim();
     var ville = document.getElementById('reg-ville').value.trim();
+    var password = document.getElementById('reg-password').value;
+    var passwordConfirm = document.getElementById('reg-password-confirm').value;
 
     if(!nom || !email){
       alert('Merci de renseigner au moins ton nom et ton email.');
+      return;
+    }
+    if(!password || password.length < 6){
+      alert('Le mot de passe doit contenir au moins 6 caractères.');
+      return;
+    }
+    if(password !== passwordConfirm){
+      alert('Les deux mots de passe ne correspondent pas.');
       return;
     }
 
@@ -336,7 +346,7 @@
       const res = await fetch(API_BASE + '/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nom, email, whatsapp, ville })
+        body: JSON.stringify({ nom, email, whatsapp, ville, password })
       });
       const data = await res.json();
       if (!res.ok || !data.registrationId) {
