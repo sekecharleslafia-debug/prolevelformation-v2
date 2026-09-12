@@ -131,10 +131,13 @@ async function envoyerEmailAcces(candidat) {
         htmlContent: `
           <p>Bonjour ${candidat.nom || ''},</p>
           <p>Ton paiement de 5 000 FCFA a bien été reçu et confirmé. Merci pour ton inscription !</p>
-          <p><strong>Formation :</strong> Apprendre à commander sur Alibaba<br>
-             <strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
-          <p>Connecte-toi ici le jour du début de la formation :<br>
-             <a href="https://alibabaformation.netlify.app/acces.html">https://alibabaformation.netlify.app/acces.html</a></p>
+          <p>Voici tes informations de connexion à l'espace formation :</p>
+          <p>
+            <strong>Nom prénom :</strong> ${candidat.nom || ''}<br>
+            <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
+            <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.netlify.app">https://alibaba-acces.netlify.app</a>
+          </p>
+          <p><strong>Dates :</strong> Du 17 Septembre au 20 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
         `
       })
@@ -156,16 +159,17 @@ async function envoyerEmailAcces(candidat) {
    ========================================================= */
 app.post('/api/register', async (req, res) => {
   try {
-    const { nom, email, whatsapp, ville } = req.body || {};
+    const { nom, email, whatsapp, ville, password } = req.body || {};
 
-    if (!nom || !email) {
-      return res.status(400).json({ error: 'Nom et email sont obligatoires.' });
+    if (!nom || !email || !password) {
+      return res.status(400).json({ error: 'Nom, email et mot de passe sont obligatoires.' });
     }
 
     const registrationId = crypto.randomUUID();
 
     await creerInscription(registrationId, {
       nom, email, whatsapp, ville,
+      motDePasse: password,
       transactionId: null,
       paye: false,
       emailEnvoye: false,
