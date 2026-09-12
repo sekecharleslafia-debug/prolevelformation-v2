@@ -183,9 +183,9 @@ async function envoyerEmailAcces(candidat) {
           <p>
             <strong>Nom prénom :</strong> ${candidat.nom || ''}<br>
             <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
-            <strong>Lien de la formation :</strong> <a href="https://prolevelformation-v2-1.onrender.com/acces.html">https://prolevelformation-v2-1.onrender.com/acces.html</a>
+            <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.onrender.com/acces.html">https://prolevelformation-v2-1.onrender.com/acces.html</a>
           </p>
-          <p><strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
+          <p><strong>Dates :</strong> Du 17 Septembre au 20 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
         `
       })
@@ -248,7 +248,7 @@ app.post('/api/create-transaction', async (req, res) => {
       return res.status(400).json({ error: 'COMPLET' });
     }
 
-    const amount = 100;
+    const amount = 5000;
     const description = 'Formation - Commander sur Alibaba (ProLevelFormation)';
 
     const response = await fetch(`${FEDAPAY_BASE_URL}/transactions`, {
