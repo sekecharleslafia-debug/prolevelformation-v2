@@ -10,8 +10,7 @@ const app = express();
 
 app.use(cors({
   origin: [
-    'https://alibabaformation.netlify.app',
-    'https://alibaba-acces.netlify.app'
+    'https://prolevelformation-v2-1.onrender.com'
   ]
 }));
 
@@ -184,7 +183,7 @@ async function envoyerEmailAcces(candidat) {
           <p>
             <strong>Nom prénom :</strong> ${candidat.nom || ''}<br>
             <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
-            <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.netlify.app">https://alibaba-acces.netlify.app</a>
+            <strong>Lien de la formation :</strong> <a href="https://prolevelformation-v2-1.onrender.com/acces.html">https://prolevelformation-v2-1.onrender.com/acces.html</a>
           </p>
           <p><strong>Dates :</strong> Du 14 Septembre au 18 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
