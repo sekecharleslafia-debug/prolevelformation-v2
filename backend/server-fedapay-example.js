@@ -178,14 +178,14 @@ async function envoyerEmailAcces(candidat) {
         subject: 'Ton paiement est confirmé — Accès à la formation Alibaba',
         htmlContent: `
           <p>Bonjour ${candidat.nom || ''},</p>
-          <p>Ton paiement de 5 000 FCFA a bien été reçu et confirmé. Merci pour ton inscription !</p>
+          <p>Ton paiement de 2100 FCFA a bien été reçu et confirmé. Merci pour ton inscription !</p>
           <p>Voici tes informations de connexion à l'espace formation :</p>
           <p>
             <strong>Nom prénom :</strong> ${candidat.nom || ''}<br>
             <strong>Mot de passe :</strong> ${candidat.motDePasse || ''}<br>
             <strong>Lien de la formation :</strong> <a href="https://alibaba-acces.onrender.com">https://alibaba-acces.onrender.com</a>
           </p>
-          <p><strong>Dates :</strong> Du 19 Septembre au 22 Septembre, chaque jour à 20h</p>
+          <p><strong>Dates :</strong> Du 22 Septembre au 24 Septembre, chaque jour à 20h</p>
           <p>Bonne formation !<br>L'équipe ProLevelFormation</p>
         `
       })
@@ -248,7 +248,7 @@ app.post('/api/create-transaction', async (req, res) => {
       return res.status(400).json({ error: 'COMPLET' });
     }
 
-    const amount = 5000;
+    const amount = 2100;
     const description = 'Formation - Commander sur Alibaba (ProLevelFormation)';
 
     const response = await fetch(`${FEDAPAY_BASE_URL}/transactions`, {
